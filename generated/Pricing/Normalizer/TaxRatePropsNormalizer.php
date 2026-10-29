@@ -36,7 +36,7 @@ class TaxRatePropsNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         $object = new \AntiPatternInc\Saasus\Sdk\Pricing\Model\TaxRateProps();
         if (\array_key_exists('percentage', $data) && \is_int($data['percentage'])) {
-            $data['percentage'] = (double) $data['percentage'];
+            $data['percentage'] = (float) $data['percentage'];
         }
         if (null === $data || false === \is_array($data)) {
             return $object;
