@@ -38,6 +38,7 @@ for module in $MODULES; do
   echo "Generating SDK for $module (config: $config_name)..."
   php vendor/bin/jane-openapi generate --config-file=jane-config/jane-openapi-configuration-$config_name.php
 done
+php tools/fix-generated.php generated
 echo "SDK generation completed."
 
 # READMEファイルを復元
