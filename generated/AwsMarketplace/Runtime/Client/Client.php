@@ -39,7 +39,6 @@ abstract class Client
     public function executeEndpoint(Endpoint $endpoint, string $fetch = self::FETCH_OBJECT)
     {
         if (self::FETCH_RESPONSE === $fetch) {
-            trigger_deprecation('jane-php/open-api-common', '7.3', 'Using %s::%s method with $fetch parameter equals to response is deprecated, use %s::%s instead.', __CLASS__, __METHOD__, __CLASS__, 'executeRawEndpoint');
             return $this->executeRawEndpoint($endpoint);
         }
         return $endpoint->parseResponse($this->processEndpoint($endpoint), $this->serializer, $fetch);
