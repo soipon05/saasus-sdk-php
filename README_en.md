@@ -31,18 +31,22 @@ SAASUS_LOGIN_URL="https://auth.sample.saasus.jp/ (Login Screen URL)"
 SAASUS_SAAS_ID, SAASUS_API_KEY, SAASUS_SECRET_KEY are the SaaS ID, API key and client secret displayed on the SaaS development console screen,
 SAASUS_LOGIN_URL sets the URL of the login screen created in the SaaS development console.
 
-### Incorporating the authentication module
+### Requirements
 
-api/routes/web.php
+- PHP 8.4 or later (tested on PHP 8.4 / 8.5)
+- Framework-agnostic (no Laravel required)
+
+### Usage
 
 ```php
-// Use Auth Middleware of SaaSus SDK standard
-Route::middleware(\AntiPatternInc\Saasus\Laravel\Middleware\Auth::class)->group(function () {
-    // Write your own logic
+use AntiPatternInc\Saasus\Api\Client;
 
-    Route::redirect('/', '/xxxxxx');
-});
+// Reads SAASUS_SAAS_ID / SAASUS_API_KEY / SAASUS_SECRET_KEY from the environment
+$client = new Client();
+$userInfo = $client->getAuthClient()->getUserInfo(['token' => $idToken]);
 ```
+
+> The Laravel middleware / controllers previously bundled (`AntiPatternInc\Saasus\Laravel\*`) have been removed from the core package.
 
 ---
 
