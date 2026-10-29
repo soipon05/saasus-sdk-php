@@ -24,7 +24,7 @@ class CommentsNormalizer implements DenormalizerInterface, NormalizerInterface, 
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === AntiPatternInc\Saasus\Sdk\Communication\Model\Comments::class;
+        return is_object($data) && get_class($data) === \AntiPatternInc\Saasus\Sdk\Communication\Model\Comments::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {

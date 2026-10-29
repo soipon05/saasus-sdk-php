@@ -24,7 +24,7 @@ class ApiLogsNormalizer implements DenormalizerInterface, NormalizerInterface, D
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === AntiPatternInc\Saasus\Sdk\ApiLog\Model\ApiLogs::class;
+        return is_object($data) && get_class($data) === \AntiPatternInc\Saasus\Sdk\ApiLog\Model\ApiLogs::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {

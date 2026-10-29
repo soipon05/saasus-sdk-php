@@ -24,7 +24,7 @@ class SavePlanParamNormalizer implements DenormalizerInterface, NormalizerInterf
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === AntiPatternInc\Saasus\Sdk\AwsMarketplace\Model\SavePlanParam::class;
+        return is_object($data) && get_class($data) === \AntiPatternInc\Saasus\Sdk\AwsMarketplace\Model\SavePlanParam::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {

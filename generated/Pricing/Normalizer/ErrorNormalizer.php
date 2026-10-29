@@ -24,7 +24,7 @@ class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === AntiPatternInc\Saasus\Sdk\Pricing\Model\Error::class;
+        return is_object($data) && get_class($data) === \AntiPatternInc\Saasus\Sdk\Pricing\Model\Error::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {

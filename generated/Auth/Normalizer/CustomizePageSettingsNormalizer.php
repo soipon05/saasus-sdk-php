@@ -24,7 +24,7 @@ class CustomizePageSettingsNormalizer implements DenormalizerInterface, Normaliz
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === AntiPatternInc\Saasus\Sdk\Auth\Model\CustomizePageSettings::class;
+        return is_object($data) && get_class($data) === \AntiPatternInc\Saasus\Sdk\Auth\Model\CustomizePageSettings::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {

@@ -24,7 +24,7 @@ class MeteringUnitMonthCountNormalizer implements DenormalizerInterface, Normali
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === AntiPatternInc\Saasus\Sdk\Pricing\Model\MeteringUnitMonthCount::class;
+        return is_object($data) && get_class($data) === \AntiPatternInc\Saasus\Sdk\Pricing\Model\MeteringUnitMonthCount::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {

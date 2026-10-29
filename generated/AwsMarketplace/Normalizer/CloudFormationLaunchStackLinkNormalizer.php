@@ -24,7 +24,7 @@ class CloudFormationLaunchStackLinkNormalizer implements DenormalizerInterface, 
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === AntiPatternInc\Saasus\Sdk\AwsMarketplace\Model\CloudFormationLaunchStackLink::class;
+        return is_object($data) && get_class($data) === \AntiPatternInc\Saasus\Sdk\AwsMarketplace\Model\CloudFormationLaunchStackLink::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {

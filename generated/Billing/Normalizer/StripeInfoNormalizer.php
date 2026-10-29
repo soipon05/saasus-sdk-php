@@ -24,7 +24,7 @@ class StripeInfoNormalizer implements DenormalizerInterface, NormalizerInterface
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === AntiPatternInc\Saasus\Sdk\Billing\Model\StripeInfo::class;
+        return is_object($data) && get_class($data) === \AntiPatternInc\Saasus\Sdk\Billing\Model\StripeInfo::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {

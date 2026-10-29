@@ -24,7 +24,7 @@ class EnvsNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === AntiPatternInc\Saasus\Sdk\Auth\Model\Envs::class;
+        return is_object($data) && get_class($data) === \AntiPatternInc\Saasus\Sdk\Auth\Model\Envs::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {

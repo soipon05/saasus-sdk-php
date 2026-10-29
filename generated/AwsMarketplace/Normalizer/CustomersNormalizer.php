@@ -24,7 +24,7 @@ class CustomersNormalizer implements DenormalizerInterface, NormalizerInterface,
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === AntiPatternInc\Saasus\Sdk\AwsMarketplace\Model\Customers::class;
+        return is_object($data) && get_class($data) === \AntiPatternInc\Saasus\Sdk\AwsMarketplace\Model\Customers::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {

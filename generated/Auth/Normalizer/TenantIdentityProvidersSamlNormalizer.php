@@ -24,7 +24,7 @@ class TenantIdentityProvidersSamlNormalizer implements DenormalizerInterface, No
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === AntiPatternInc\Saasus\Sdk\Auth\Model\TenantIdentityProvidersSaml::class;
+        return is_object($data) && get_class($data) === \AntiPatternInc\Saasus\Sdk\Auth\Model\TenantIdentityProvidersSaml::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
