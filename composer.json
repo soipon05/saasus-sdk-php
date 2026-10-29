@@ -30,17 +30,15 @@
     "anti-pattern",
     "php-sdk",
     "api-client",
-    "laravel",
     "sdk",
     "multi-tenant",
     "saas"
   ],
   "require": {
-    "php": ">=8.0.2",
-    "laravel/framework": ">=9 <12",
+    "php": ">=8.4",
     "guzzlehttp/guzzle": "^7.4",
-    "guzzlehttp/psr7": "^1.7.0|^2.0",
-    "guzzlehttp/promises": "^1.4.0",
+    "guzzlehttp/psr7": "^2.0",
+    "guzzlehttp/promises": "^2.0",
     "jane-php/open-api-runtime": "^7.3",
     "php-http/guzzle7-adapter": "^1.0"
   },
@@ -56,14 +54,12 @@
   "scripts": {
     "test": "phpunit test"
   },
-  "config": {
-    "allow-plugins": {
-      "kylekatarnls/update-helper": true
-    }
-  },
   "extra": {
     "symfony": {
       "allow-contrib": "true"
     }
+  },
+  "conflict": {
+    "symfony/serializer": "<6.4"
   }
 }
