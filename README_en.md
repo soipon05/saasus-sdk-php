@@ -25,11 +25,11 @@ composer require saasus-platform/saasus-sdk-php
 SAASUS_SAAS_ID="(SaaS ID on Screen)"
 SAASUS_API_KEY="(API KEY on Screen)"
 SAASUS_SECRET_KEY="(Client Secret on Screen)"
-SAASUS_LOGIN_URL="https://auth.sample.saasus.jp/ (Login Screen URL)"
 ```
 
-SAASUS_SAAS_ID, SAASUS_API_KEY, SAASUS_SECRET_KEY are the SaaS ID, API key and client secret displayed on the SaaS development console screen,
-SAASUS_LOGIN_URL sets the URL of the login screen created in the SaaS development console.
+SAASUS_SAAS_ID, SAASUS_API_KEY, SAASUS_SECRET_KEY are the SaaS ID, API key and client secret displayed on the SaaS development console screen.
+
+The SDK reads them with `getenv()`. Plain PHP does not load `.env` files automatically, so if you use a `.env` file, load it in a way that is visible to `getenv()` (e.g. `Dotenv::createUnsafeImmutable()` with vlucas/phpdotenv).
 
 ### Requirements
 

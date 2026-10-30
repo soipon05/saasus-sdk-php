@@ -25,11 +25,11 @@ composer require saasus-platform/saasus-sdk-php
 SAASUS_SAAS_ID="（画面のSaaS ID）"
 SAASUS_API_KEY="（画面のAPI KEY）"
 SAASUS_SECRET_KEY="（画面のクライアントシークレット）"
-SAASUS_LOGIN_URL="https://auth.sample.saasus.jp/（ログイン画面のURL）"
 ```
 
-SAASUS_SAAS_ID, SAASUS_API_KEY, SAASUS_SECRET_KEY は SaaS 開発コンソール画面に表示されている SaaS ID、 API キー 　と　クライアントシークレットを、
-SAASUS_LOGIN_URL は、SaaS 開発コンソールで作成したログイン画面の URL を設定します。
+SAASUS_SAAS_ID, SAASUS_API_KEY, SAASUS_SECRET_KEY は SaaS 開発コンソール画面に表示されている SaaS ID、 API キー 　と　クライアントシークレットを設定します。
+
+SDK はこれらを `getenv()` で読み込みます。素の PHP は `.env` ファイルを自動では読み込まないので、`.env` を使う場合は `getenv()` から見える形で読み込んでください（例: vlucas/phpdotenv なら `Dotenv::createUnsafeImmutable()`）。
 
 ### 動作要件
 
