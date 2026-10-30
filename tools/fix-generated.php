@@ -6,7 +6,8 @@ declare(strict_types=1);
  * Mechanical, idempotent post-processing of the Jane-generated code under generated/
  * so it runs warning-free on PHP 8.4 / 8.5 with symfony/serializer >= 6.4.
  *
- * Usage: php tools/fix-generated.php [--only=fix1,fix2] [generated-dir]   (re-run after every regeneration)
+ * Usage: php tools/fix-generated.php [--only=fix1,fix2] [--check] [generated-dir]   (re-run after every regeneration)
+ *        --check writes nothing and exits 1 if any file still needs one of the fixes below.
  *
  * Fixes, in order:
  *  1. kernel-branch  Drop `if (... Kernel::MAJOR_VERSION ...) { A } else { B }` wrappers, keeping A
@@ -22,8 +23,12 @@ declare(strict_types=1);
 
 $args = array_slice($argv, 1);
 $only = null;
+$check = false;
 foreach ($args as $k => $a) {
-    if (str_starts_with($a, '--only=')) {
+    if ($a === '--check') {
+        $check = true;
+        unset($args[$k]);
+    } elseif (str_starts_with($a, '--only=')) {
         $only = explode(',', substr($a, 7));
         unset($args[$k]);
     }
@@ -40,6 +45,7 @@ foreach ($it as $f) {
     }
 }
 sort($files);
+$pending = [];
 
 foreach ($files as $path) {
     $orig = file_get_contents($path);
@@ -55,10 +61,24 @@ foreach ($files as $path) {
         $src = fixFetchResponse($src, $stats);
     }
     $src = fixTokens($src, $stats);
-    if ($src !== $orig) {
+    if ($check) {
+        $leftover = ($on('kernel-branch') && str_contains($src, 'Kernel::MAJOR_VERSION'))
+            || ($on('fetch-response') && str_contains($src, 'trigger_deprecation('));
+        if ($src !== $orig || $leftover) {
+            $pending[] = $path;
+        }
+    } elseif ($src !== $orig) {
         file_put_contents($path, $src);
         $stats['files-changed']++;
     }
+}
+
+if ($check) {
+    foreach ($pending as $path) {
+        echo "needs fix: $path\n";
+    }
+    printf("check: %d file(s) need fixing\n", count($pending));
+    exit($pending ? 1 : 0);
 }
 
 foreach ($stats as $k => $v) {
