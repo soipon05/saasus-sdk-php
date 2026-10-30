@@ -25,24 +25,28 @@ composer require saasus-platform/saasus-sdk-php
 SAASUS_SAAS_ID="(SaaS ID on Screen)"
 SAASUS_API_KEY="(API KEY on Screen)"
 SAASUS_SECRET_KEY="(Client Secret on Screen)"
-SAASUS_LOGIN_URL="https://auth.sample.saasus.jp/ (Login Screen URL)"
 ```
 
-SAASUS_SAAS_ID, SAASUS_API_KEY, SAASUS_SECRET_KEY are the SaaS ID, API key and client secret displayed on the SaaS development console screen,
-SAASUS_LOGIN_URL sets the URL of the login screen created in the SaaS development console.
+SAASUS_SAAS_ID, SAASUS_API_KEY, SAASUS_SECRET_KEY are the SaaS ID, API key and client secret displayed on the SaaS development console screen.
 
-### Incorporating the authentication module
+The SDK reads them with `getenv()`. Plain PHP does not load `.env` files automatically, so if you use a `.env` file, load it in a way that is visible to `getenv()` (e.g. `Dotenv::createUnsafeImmutable()` with vlucas/phpdotenv).
 
-api/routes/web.php
+### Requirements
+
+- PHP 8.4 or later (tested on PHP 8.4 / 8.5)
+- Framework-agnostic (no Laravel required)
+
+### Usage
 
 ```php
-// Use Auth Middleware of SaaSus SDK standard
-Route::middleware(\AntiPatternInc\Saasus\Laravel\Middleware\Auth::class)->group(function () {
-    // Write your own logic
+use AntiPatternInc\Saasus\Api\Client;
 
-    Route::redirect('/', '/xxxxxx');
-});
+// Reads SAASUS_SAAS_ID / SAASUS_API_KEY / SAASUS_SECRET_KEY from the environment
+$client = new Client();
+$userInfo = $client->getAuthClient()->getUserInfo(['token' => $idToken]);
 ```
+
+> The Laravel middleware / controllers previously bundled (`AntiPatternInc\Saasus\Laravel\*`) have been removed from the core package.
 
 ---
 

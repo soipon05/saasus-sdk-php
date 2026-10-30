@@ -25,24 +25,28 @@ composer require saasus-platform/saasus-sdk-php
 SAASUS_SAAS_ID="（画面のSaaS ID）"
 SAASUS_API_KEY="（画面のAPI KEY）"
 SAASUS_SECRET_KEY="（画面のクライアントシークレット）"
-SAASUS_LOGIN_URL="https://auth.sample.saasus.jp/（ログイン画面のURL）"
 ```
 
-SAASUS_SAAS_ID, SAASUS_API_KEY, SAASUS_SECRET_KEY は SaaS 開発コンソール画面に表示されている SaaS ID、 API キー 　と　クライアントシークレットを、
-SAASUS_LOGIN_URL は、SaaS 開発コンソールで作成したログイン画面の URL を設定します。
+SAASUS_SAAS_ID, SAASUS_API_KEY, SAASUS_SECRET_KEY は SaaS 開発コンソール画面に表示されている SaaS ID、 API キー 　と　クライアントシークレットを設定します。
 
-### 認証モジュールの組み込み
+SDK はこれらを `getenv()` で読み込みます。素の PHP は `.env` ファイルを自動では読み込まないので、`.env` を使う場合は `getenv()` から見える形で読み込んでください（例: vlucas/phpdotenv なら `Dotenv::createUnsafeImmutable()`）。
 
-api/routes/web.php
+### 動作要件
+
+- PHP 8.4 以上（PHP 8.4 / 8.5 で動作確認）
+- フレームワーク非依存（Laravel 不要）
+
+### 利用例
 
 ```php
-// SaaSus SDK標準のAuth Middlewareを利用する
-Route::middleware(\AntiPatternInc\Saasus\Laravel\Middleware\Auth::class)->group(function () {
-    // 固有のロジックを記載する
+use AntiPatternInc\Saasus\Api\Client;
 
-    Route::redirect('/', '/xxxxxx');
-});
+// 環境変数 SAASUS_SAAS_ID / SAASUS_API_KEY / SAASUS_SECRET_KEY を読み込みます
+$client = new Client();
+$userInfo = $client->getAuthClient()->getUserInfo(['token' => $idToken]);
 ```
+
+> 以前同梱していた Laravel 用 Middleware / Controller（`AntiPatternInc\Saasus\Laravel\*`）はコアから削除しました。
 
 ---
 

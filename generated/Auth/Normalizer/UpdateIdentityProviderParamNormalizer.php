@@ -12,145 +12,69 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\HttpKernel\Kernel;
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class UpdateIdentityProviderParamNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class UpdateIdentityProviderParamNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-        public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
-        {
-            return $type === \AntiPatternInc\Saasus\Sdk\Auth\Model\UpdateIdentityProviderParam::class;
-        }
-        public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === AntiPatternInc\Saasus\Sdk\Auth\Model\UpdateIdentityProviderParam::class;
-        }
-        public function denormalize(mixed $data, string $type, string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \AntiPatternInc\Saasus\Sdk\Auth\Model\UpdateIdentityProviderParam();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('provider', $data) && $data['provider'] !== null) {
-                $object->setProvider($data['provider']);
-                unset($data['provider']);
-            }
-            elseif (\array_key_exists('provider', $data) && $data['provider'] === null) {
-                $object->setProvider(null);
-            }
-            if (\array_key_exists('identity_provider_props', $data) && $data['identity_provider_props'] !== null) {
-                $object->setIdentityProviderProps($this->denormalizer->denormalize($data['identity_provider_props'], \AntiPatternInc\Saasus\Sdk\Auth\Model\IdentityProviderProps::class, 'json', $context));
-                unset($data['identity_provider_props']);
-            }
-            elseif (\array_key_exists('identity_provider_props', $data) && $data['identity_provider_props'] === null) {
-                $object->setIdentityProviderProps(null);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-            return $object;
-        }
-        public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['provider'] = $object->getProvider();
-            if ($object->isInitialized('identityProviderProps') && null !== $object->getIdentityProviderProps()) {
-                $data['identity_provider_props'] = $this->normalizer->normalize($object->getIdentityProviderProps(), 'json', $context);
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-            return $data;
-        }
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\AntiPatternInc\Saasus\Sdk\Auth\Model\UpdateIdentityProviderParam::class => false];
-        }
+        return $type === \AntiPatternInc\Saasus\Sdk\Auth\Model\UpdateIdentityProviderParam::class;
     }
-} else {
-    class UpdateIdentityProviderParamNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-        public function supportsDenormalization($data, $type, string $format = null, array $context = []): bool
-        {
-            return $type === \AntiPatternInc\Saasus\Sdk\Auth\Model\UpdateIdentityProviderParam::class;
+        return is_object($data) && get_class($data) === \AntiPatternInc\Saasus\Sdk\Auth\Model\UpdateIdentityProviderParam::class;
+    }
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-        public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === AntiPatternInc\Saasus\Sdk\Auth\Model\UpdateIdentityProviderParam::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        /**
-         * @return mixed
-         */
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \AntiPatternInc\Saasus\Sdk\Auth\Model\UpdateIdentityProviderParam();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('provider', $data) && $data['provider'] !== null) {
-                $object->setProvider($data['provider']);
-                unset($data['provider']);
-            }
-            elseif (\array_key_exists('provider', $data) && $data['provider'] === null) {
-                $object->setProvider(null);
-            }
-            if (\array_key_exists('identity_provider_props', $data) && $data['identity_provider_props'] !== null) {
-                $object->setIdentityProviderProps($this->denormalizer->denormalize($data['identity_provider_props'], \AntiPatternInc\Saasus\Sdk\Auth\Model\IdentityProviderProps::class, 'json', $context));
-                unset($data['identity_provider_props']);
-            }
-            elseif (\array_key_exists('identity_provider_props', $data) && $data['identity_provider_props'] === null) {
-                $object->setIdentityProviderProps(null);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
+        $object = new \AntiPatternInc\Saasus\Sdk\Auth\Model\UpdateIdentityProviderParam();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['provider'] = $object->getProvider();
-            if ($object->isInitialized('identityProviderProps') && null !== $object->getIdentityProviderProps()) {
-                $data['identity_provider_props'] = $this->normalizer->normalize($object->getIdentityProviderProps(), 'json', $context);
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-            return $data;
+        if (\array_key_exists('provider', $data) && $data['provider'] !== null) {
+            $object->setProvider($data['provider']);
+            unset($data['provider']);
         }
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\AntiPatternInc\Saasus\Sdk\Auth\Model\UpdateIdentityProviderParam::class => false];
+        elseif (\array_key_exists('provider', $data) && $data['provider'] === null) {
+            $object->setProvider(null);
         }
+        if (\array_key_exists('identity_provider_props', $data) && $data['identity_provider_props'] !== null) {
+            $object->setIdentityProviderProps($this->denormalizer->denormalize($data['identity_provider_props'], \AntiPatternInc\Saasus\Sdk\Auth\Model\IdentityProviderProps::class, 'json', $context));
+            unset($data['identity_provider_props']);
+        }
+        elseif (\array_key_exists('identity_provider_props', $data) && $data['identity_provider_props'] === null) {
+            $object->setIdentityProviderProps(null);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
+            }
+        }
+        return $object;
+    }
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $data = [];
+        $data['provider'] = $object->getProvider();
+        if ($object->isInitialized('identityProviderProps') && null !== $object->getIdentityProviderProps()) {
+            $data['identity_provider_props'] = $this->normalizer->normalize($object->getIdentityProviderProps(), 'json', $context);
+        }
+        foreach ($object as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $data[$key] = $value;
+            }
+        }
+        return $data;
+    }
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\AntiPatternInc\Saasus\Sdk\Auth\Model\UpdateIdentityProviderParam::class => false];
     }
 }
